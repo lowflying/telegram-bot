@@ -1,0 +1,20 @@
+[Unit]
+Description=Homelabber Telegram Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/lowflying/talon/telegram-bot
+EnvironmentFile=/home/lowflying/talon/telegram-bot/.env
+ExecStart=/usr/bin/python3 -m telegram_bot.main
+Restart=on-failure
+RestartSec=10
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
+Environment=PYTHONUNBUFFERED=1
+Environment=PATH=/home/lowflying/.local/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
