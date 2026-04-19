@@ -1,0 +1,14 @@
+name: Deploy to Homelab
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: [self-hosted, homelab]
+    steps:
+      - name: Pull latest
+        run: git -C /home/lowflying/talon/telegram-bot pull origin main
+      - name: Restart homelabber-bot service
+        run: systemctl --user restart homelabber-bot
+      - name: Verify service is running
+        run: systemctl --user is-active homelabber-bot
